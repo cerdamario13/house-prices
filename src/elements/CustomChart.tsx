@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IChartDataPoint, IChartProps, ILineChartPoints } from '@fluentui/react-charting';
+import { IChartProps, ILineChartPoints } from '@fluentui/react-charting';
 import { LineChart } from '@fluentui/react-charting';
 
 interface ICustomChartProps {

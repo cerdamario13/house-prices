@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IChartProps, ILineChartProps, LineChart, DataVizPalette } from '@fluentui/react-charting';
+import { IChartProps, DataVizPalette } from '@fluentui/react-charting';
 import Tile from '../elements/Tile';
 
 const HomePage = () => {
