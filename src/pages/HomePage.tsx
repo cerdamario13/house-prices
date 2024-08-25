@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IChartProps, ILineChartProps, LineChart, DataVizPalette } from '@fluentui/react-charting';
-import { Stack } from '@fluentui/react';
+import Tile from '../elements/Tile';
 
 const HomePage = () => {
 
@@ -8,7 +8,7 @@ const HomePage = () => {
       chartTitle: 'Line Chart',
       lineChartData: [
         {
-          legend: 'From_Legacy_to_O365',
+          legend: 'Legend 1',
           data: [
             {
               x: new Date('2020-03-03T00:00:00.000Z'),
@@ -63,7 +63,7 @@ const HomePage = () => {
           onLineClick: () => console.log('From_Legacy_to_O365'),
         },
         {
-          legend: 'All',
+          legend: 'Legend 2',
           data: [
             {
               x: new Date('2020-03-03T00:00:00.000Z'),
@@ -100,7 +100,7 @@ const HomePage = () => {
           },
         },
         {
-          legend: 'single point',
+          legend: 'Legend 3',
           data: [
             {
               x: new Date('2020-03-05T12:00:00.000Z'),
@@ -113,26 +113,13 @@ const HomePage = () => {
     };
 
   return (
-    <div style={{paddingLeft: "10px", paddingRight: "10px"}}>
-      <div style={{padding: "10px", border: "1px solid black" }}>
-        <Stack>
-          <h5>Price Index Ratio</h5>
-          <LineChart
-            culture={window.navigator.language}
-            data={data}
-            legendsOverflowText={'Overflow Items'}
-            yMinValue={200}
-            yMaxValue={301}
-            // height={500}
-            // width={300}
-            xAxisTickCount={10}
-            enablePerfOptimization={true}
-            yAxisTitle='Different categories of mail flow'
-            xAxisTitle='Values of each category'
-          />
-        </Stack>
-      </div>
-    </div>
+    <>
+      <Tile
+        title="Tile 1"
+        chartTitle="Chart 1"
+        lineChartData={data.lineChartData}
+      />
+    </>
   );
 }
 

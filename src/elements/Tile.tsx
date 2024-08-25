@@ -1,16 +1,25 @@
 import * as React from 'react';
 import { Stack } from '@fluentui/react';
+import CustomChart from './CustomChart';
+import { ILineChartPoints } from '@fluentui/react-charting';
+
 
 interface ITileProps {
   title: string;
+  chartTitle: string;
+  lineChartData: ILineChartPoints[] | undefined;
 };
 
-const Tile = ({title}: ITileProps) => {
+const Tile = ({title, chartTitle, lineChartData}: ITileProps) => {
   return (
     <div style={{paddingLeft: "10px", paddingRight: "10px"}}>
       <div style={{padding: "10px", border: "1px solid black" }}>
         <Stack>
           <h3>{title}</h3>
+          <CustomChart
+            chartTitle={chartTitle}
+            lineChartData={lineChartData}
+          />
         </Stack>
 
       </div>
