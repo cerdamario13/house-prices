@@ -10,16 +10,24 @@ interface ITileProps {
   lineChartData: ILineChartPoints[] | undefined;
 };
 
-const Tile = ({title, chartTitle, lineChartData}: ITileProps) => {
+const Tile = ({ title, chartTitle, lineChartData }: ITileProps) => {
   return (
-    <div style={{paddingLeft: "10px", paddingRight: "10px"}}>
-      <div style={{padding: "10px", border: "1px solid black" }}>
+    <div style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+      <div style={{ padding: "10px", border: "1px solid black" }}>
         <Stack>
           <h3>{title}</h3>
-          <CustomChart
-            chartTitle={chartTitle}
-            lineChartData={lineChartData}
-          />
+          {
+            lineChartData ? (
+              <CustomChart
+                chartTitle={chartTitle}
+                lineChartData={lineChartData}
+              />
+            ) : (
+              <div>
+                No data to display
+              </div>
+            )
+          }
         </Stack>
 
       </div>
