@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Stack } from '@fluentui/react';
+import { IconButton, Stack, Text } from '@fluentui/react';
 import CustomChart from './CustomChart';
 import { ILineChartPoints } from '@fluentui/react-charting';
 
@@ -15,7 +15,16 @@ const Tile = ({ title, chartTitle, lineChartData }: ITileProps) => {
     <div style={{ paddingLeft: "10px", paddingRight: "10px" }}>
       <div style={{ padding: "10px", border: "1px solid black" }}>
         <Stack>
-          <h3>{title}</h3>
+          <Stack horizontal tokens={{childrenGap: 5}}>
+            <Text variant='xxLarge'>{title}</Text>
+            <IconButton
+              iconProps={{ iconName: 'Table' }}
+              title="Show Data"
+              styles={{
+                icon: { fontSize: 20 }
+              }}
+            />
+          </Stack>
           {
             lineChartData ? (
               <CustomChart
