@@ -62,53 +62,6 @@ const HomePage = () => {
           },
           onLineClick: () => console.log('From_Legacy_to_O365'),
         },
-        {
-          legend: 'Legend 2',
-          data: [
-            {
-              x: new Date('2020-03-03T00:00:00.000Z'),
-              y: 297000,
-            },
-            {
-              x: new Date('2020-03-04T00:00:00.000Z'),
-              y: 284000,
-            },
-            {
-              x: new Date('2020-03-05T00:00:00.000Z'),
-              y: 282000,
-            },
-            {
-              x: new Date('2020-03-06T00:00:00.000Z'),
-              y: 294000,
-            },
-            {
-              x: new Date('2020-03-07T00:00:00.000Z'),
-              y: 224000,
-            },
-            {
-              x: new Date('2020-03-08T00:00:00.000Z'),
-              y: 300000,
-            },
-            {
-              x: new Date('2020-03-09T00:00:00.000Z'),
-              y: 298000,
-            },
-          ],
-          color: DataVizPalette.color4,
-          lineOptions: {
-            lineBorderWidth: '4',
-          },
-        },
-        {
-          legend: 'Legend 3',
-          data: [
-            {
-              x: new Date('2020-03-05T12:00:00.000Z'),
-              y: 232000,
-            },
-          ],
-          color: DataVizPalette.color5,
-        },
       ],
     };
 
