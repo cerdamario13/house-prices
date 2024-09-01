@@ -115,7 +115,7 @@ const HomePage = () => {
   return (
     <>
       <Tile
-        title="Tile 1"
+        title="Price Index Ratio"
         chartTitle="Chart 1"
         lineChartData={data.lineChartData}
       />

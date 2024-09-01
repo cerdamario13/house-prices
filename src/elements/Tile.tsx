@@ -2,6 +2,8 @@ import * as React from 'react';
 import { IconButton, Stack, Text } from '@fluentui/react';
 import { ILineChartPoints } from '@fluentui/react-charting';
 import TileChart from './TileChart';
+import { useBoolean } from '@fluentui/react-hooks';
+import TileData from './TileData';
 
 
 interface ITileProps {
@@ -12,12 +14,13 @@ interface ITileProps {
 
 const Tile = ({ title, chartTitle, lineChartData }: ITileProps) => {
 
+  const [showData, { toggle: toggleShowData }] = useBoolean(false);
 
   return (
     <div style={{ paddingLeft: "10px", paddingRight: "10px" }}>
       <div style={{ padding: "10px", border: "1px solid black" }}>
         <Stack>
-          <Stack horizontal tokens={{childrenGap: 5}} verticalAlign='center' >
+          <Stack horizontal tokens={{ childrenGap: 5 }} verticalAlign='center' >
             <Text variant='xxLarge'>{title}</Text>
             <IconButton
               iconProps={{ iconName: 'Table' }}
@@ -25,12 +28,19 @@ const Tile = ({ title, chartTitle, lineChartData }: ITileProps) => {
               styles={{
                 icon: { fontSize: 20 }
               }}
+              onClick={toggleShowData}
             />
           </Stack>
-          <TileChart
-            lineChartData={lineChartData}
-            chartTitle={chartTitle}
-          />
+          {
+            showData ? (
+              <TileData />
+            ) : (
+              <TileChart
+                lineChartData={lineChartData}
+                chartTitle={chartTitle}
+              />
+            )
+          }
         </Stack>
 
       </div>
