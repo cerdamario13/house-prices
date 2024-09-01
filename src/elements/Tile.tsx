@@ -33,7 +33,9 @@ const Tile = ({ title, chartTitle, lineChartData }: ITileProps) => {
           </Stack>
           {
             showData ? (
-              <TileData />
+              <TileData
+                lineChartData={lineChartData}
+              />
             ) : (
               <TileChart
                 lineChartData={lineChartData}
