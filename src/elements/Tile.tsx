@@ -15,7 +15,7 @@ const Tile = ({ title, chartTitle, lineChartData }: ITileProps) => {
     <div style={{ paddingLeft: "10px", paddingRight: "10px" }}>
       <div style={{ padding: "10px", border: "1px solid black" }}>
         <Stack>
-          <Stack horizontal tokens={{childrenGap: 5}}>
+          <Stack horizontal tokens={{childrenGap: 5}} verticalAlign='center' >
             <Text variant='xxLarge'>{title}</Text>
             <IconButton
               iconProps={{ iconName: 'Table' }}
