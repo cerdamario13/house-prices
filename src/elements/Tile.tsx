@@ -23,8 +23,8 @@ const Tile = ({ title, chartTitle, lineChartData }: ITileProps) => {
           <Stack horizontal tokens={{ childrenGap: 5 }} verticalAlign='center' >
             <Text variant='xxLarge'>{title}</Text>
             <IconButton
-              iconProps={{ iconName: 'Table' }}
-              title="Show Data"
+              iconProps={{ iconName: showData ? 'LineChart' : 'Table' }}
+              title={ showData ? "Show Chart" : "Show Data"}
               styles={{
                 icon: { fontSize: 20 }
               }}
