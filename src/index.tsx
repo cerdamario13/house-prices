@@ -4,6 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// Import the style only once in your app!
+import 'react-datasheet-grid/dist/style.css';
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
