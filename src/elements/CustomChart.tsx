@@ -19,12 +19,9 @@ const CustomChart = ({chartTitle, lineChartData}: ICustomChartProps) => {
       culture={window.navigator.language}
       data={data}
       legendsOverflowText={'Overflow Items'}
-      yMinValue={200}
-      yMaxValue={301}
-      xAxisTickCount={10}
       enablePerfOptimization={true}
-      yAxisTitle='Different categories of mail flow'
-      xAxisTitle='Values of each category'
+      yAxisTitle='Price Index'
+      xAxisTitle='Year'
     />
   );
 }
