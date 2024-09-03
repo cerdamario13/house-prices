@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ComboBox, IComboBoxStyles, IconButton, IDropdownOption, Stack, Text } from '@fluentui/react';
+import { ComboBox, IComboBoxOption, IComboBoxStyles, IconButton, Stack, Text } from '@fluentui/react';
 import { ILineChartPoints } from '@fluentui/react-charting';
 import TileChart from './TileChart';
 import { useBoolean } from '@fluentui/react-hooks';
@@ -15,7 +15,7 @@ interface ITileProps {
 const Tile = ({ title, chartTitle, lineChartData }: ITileProps) => {
 
   const [showData, { toggle: toggleShowData }] = useBoolean(false);
-  const [selectedItem, setSelectedItem] = React.useState<IDropdownOption>();
+  const [selectedItem, setSelectedItem] = React.useState<IComboBoxOption>();
 
   const comboBoxStyles: Partial<IComboBoxStyles> = { root: { maxWidth: 300 } };
 
