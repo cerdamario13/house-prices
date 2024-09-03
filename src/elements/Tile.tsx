@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { IconButton, Stack, Text } from '@fluentui/react';
+import { ComboBox, IComboBoxStyles, IconButton, IDropdownOption, Stack, Text } from '@fluentui/react';
 import { ILineChartPoints } from '@fluentui/react-charting';
 import TileChart from './TileChart';
 import { useBoolean } from '@fluentui/react-hooks';
 import TileData from './TileData';
-
+import { locations } from './Data';
 
 interface ITileProps {
   title: string;
@@ -15,6 +15,9 @@ interface ITileProps {
 const Tile = ({ title, chartTitle, lineChartData }: ITileProps) => {
 
   const [showData, { toggle: toggleShowData }] = useBoolean(false);
+  const [selectedItem, setSelectedItem] = React.useState<IDropdownOption>();
+
+  const comboBoxStyles: Partial<IComboBoxStyles> = { root: { maxWidth: 300 } };
 
   return (
     <div style={{ paddingLeft: "10px", paddingRight: "10px" }}>
@@ -24,13 +27,23 @@ const Tile = ({ title, chartTitle, lineChartData }: ITileProps) => {
             <Text variant='xxLarge'>{title}</Text>
             <IconButton
               iconProps={{ iconName: showData ? 'LineChart' : 'Table' }}
-              title={ showData ? "Show Chart" : "Show Data"}
+              title={showData ? "Show Chart" : "Show Data"}
               styles={{
                 icon: { fontSize: 20 }
               }}
               onClick={toggleShowData}
             />
           </Stack>
+          <ComboBox
+            label="Location"
+            selectedKey={selectedItem ? selectedItem.key : undefined}
+            onChange={(_, item) => setSelectedItem(item)}
+            placeholder="Select an option"
+            options={locations}
+            styles={comboBoxStyles}
+            allowFreeform
+            autoComplete='on'
+          />
           {
             showData ? (
               <TileData
