@@ -9,15 +9,45 @@ import { locations } from './Data';
 interface ITileProps {
   title: string;
   chartTitle: string;
-  lineChartData: ILineChartPoints[] | undefined;
 };
 
-const Tile = ({ title, chartTitle, lineChartData }: ITileProps) => {
+const Tile = ({ title, chartTitle }: ITileProps) => {
 
   const [showData, { toggle: toggleShowData }] = useBoolean(false);
-  const [selectedItem, setSelectedItem] = React.useState<IComboBoxOption>();
+  const [selectedItem, setSelectedItem] = React.useState<string | number | undefined>("Austin-Round Rock, TX");
+  const [lineChartData, setLineChartData] = React.useState<ILineChartPoints[] | undefined>(undefined);
 
   const comboBoxStyles: Partial<IComboBoxStyles> = { root: { maxWidth: 300 } };
+
+  React.useEffect(() => {
+    getLocation(selectedItem);
+  }, [selectedItem]);
+
+  const getLocation = async (location: string | number | undefined): Promise<any> => {
+
+    const params = {
+      location: location
+    };
+
+    const queryString = new URLSearchParams(params as Record<string, string>).toString();
+    const url = `http://127.0.0.1:8000/pi_ratio?${queryString}`;
+  
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setLineChartData(data);
+    } catch (error) {
+      console.error('There was a problem with the fetch operation');
+      throw error; // Re-throw the error so the caller can handle it
+    }
+  };
+
+  const onChange = (_: any, item: IComboBoxOption | undefined) => {
+    setSelectedItem(item ? item.text : "");
+  };
 
   return (
     <div style={{ paddingLeft: "10px", paddingRight: "10px" }}>
@@ -36,8 +66,8 @@ const Tile = ({ title, chartTitle, lineChartData }: ITileProps) => {
           </Stack>
           <ComboBox
             label="Location"
-            selectedKey={selectedItem ? selectedItem.key : undefined}
-            onChange={(_, item) => setSelectedItem(item)}
+            selectedKey={selectedItem}
+            onChange={onChange}
             placeholder="Select an option"
             options={locations}
             styles={comboBoxStyles}

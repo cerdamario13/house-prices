@@ -4,14 +4,17 @@ import { LineChart } from '@fluentui/react-charting';
 
 interface ICustomChartProps {
   chartTitle: string;
-  lineChartData: ILineChartPoints[] | undefined;
+  lineChartData: any;
 };
 
 const CustomChart = ({chartTitle, lineChartData}: ICustomChartProps) => {
 
   const data: IChartProps = {
     chartTitle: chartTitle,
-    lineChartData: lineChartData
+    lineChartData: [{
+      legend: 'Price Index',
+      data: lineChartData[0]['years']
+    }]
   };
   
   return (
