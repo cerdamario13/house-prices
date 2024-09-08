@@ -1,35 +1,32 @@
 import * as React from 'react';
 import {
   DataSheetGrid,
-  checkboxColumn,
   textColumn,
   keyColumn,
-} from 'react-datasheet-grid'
-import { ILineChartPoints } from '@fluentui/react-charting';
+} from 'react-datasheet-grid';
 
 interface ITileDataProps {
-  lineChartData: ILineChartPoints[] | undefined;
+  lineChartData: any;
 };
 
 const TileData = ({lineChartData}: ITileDataProps) => {
 
-  const [ data, setData ] = React.useState<any>([
-    { firstName: 'Elon', lastName: 'Musk' },
-    { firstName: 'Jeff', lastName: 'Bezos' },
-  ]);
+  const [ data, setData ] = React.useState<any>([]);
+
+  React.useEffect(() => {
+    setData(lineChartData ? lineChartData[0]['years'] : []);
+  }, []);
 
   const columns = [
     {
-      ...keyColumn('firstName', textColumn),
-      title: 'First name',
+      ...keyColumn('x', textColumn),
+      title: 'Year',
     },
     {
-      ...keyColumn('lastName', textColumn),
-      title: 'Last name',
+      ...keyColumn('y', textColumn),
+      title: 'Price Index Ratio',
     },
   ];
-
-  console.log(lineChartData);
 
   return (
     <DataSheetGrid
