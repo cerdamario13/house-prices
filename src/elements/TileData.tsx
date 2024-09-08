@@ -33,6 +33,7 @@ const TileData = ({lineChartData}: ITileDataProps) => {
       value={data}
       onChange={setData}
       columns={columns}
+      addRowsComponent={false}
     />
   );
 };
