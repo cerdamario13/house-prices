@@ -15,7 +15,7 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
 
   const [showData, { toggle: toggleShowData }] = useBoolean(false);
   const [selectedItem, setSelectedItem] = React.useState<string | number | undefined>("Austin-Round Rock, TX");
-  const [lineChartData, setLineChartData] = React.useState<ILineChartPoints[] | undefined>(undefined);
+  const [lineChartData, setLineChartData] = React.useState<any>([]);
 
   const comboBoxStyles: Partial<IComboBoxStyles> = { root: { maxWidth: 300 } };
 
@@ -38,10 +38,16 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      setLineChartData(data);
+      if (Array.isArray(data)) {
+        setLineChartData(data);
+      } else {
+        // Error
+        setLineChartData([]);
+      }
     } catch (error) {
       console.error('There was a problem with the fetch operation');
-      throw error; // Re-throw the error so the caller can handle it
+      // setLineChartData([{}]);
+      return;
     }
   };
 
@@ -50,7 +56,7 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
   };
 
   return (
-    <div style={{ paddingLeft: "10px", paddingRight: "10px", height: '500px', maxHeight: '500px' }}>
+    <div style={{ paddingLeft: "10px", paddingRight: "10px", maxHeight: '500px', minHeight: '500px' }}>
       <div style={{ padding: "10px", border: "1px solid black" }}>
         <Stack>
           <Stack horizontal tokens={{ childrenGap: 5 }} verticalAlign='center' >
