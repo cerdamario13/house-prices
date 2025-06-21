@@ -14,7 +14,7 @@ const TileData = ({lineChartData}: ITileDataProps) => {
   const [ data, setData ] = React.useState<any>([]);
 
   React.useEffect(() => {
-    setData(lineChartData ? lineChartData[0]['years'] : []);
+    setData(lineChartData ? lineChartData : []);
   }, [lineChartData]);
 
   const columns = [

@@ -13,7 +13,7 @@ const CustomChart = ({chartTitle, lineChartData}: ICustomChartProps) => {
     chartTitle: chartTitle,
     lineChartData: [{
       legend: 'Price Index',
-      data: lineChartData[0]['years']
+      data: lineChartData
     }]
   };
   
