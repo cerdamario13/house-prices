@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ComboBox, IComboBoxOption, IComboBoxStyles, IconButton, Stack, Text } from '@fluentui/react';
+import { ComboBox, IComboBoxOption, IComboBoxStyles, IconButton, MessageBar, MessageBarType, Stack, Text } from '@fluentui/react';
 import { ILineChartPoints } from '@fluentui/react-charting';
 import TileChart from './TileChart';
 import { useBoolean } from '@fluentui/react-hooks';
@@ -16,6 +16,7 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
   const [showData, { toggle: toggleShowData }] = useBoolean(false);
   const [selectedItem, setSelectedItem] = React.useState<string | number | undefined>("Austin-Round Rock, TX");
   const [lineChartData, setLineChartData] = React.useState<any>([]);
+  const [errorMessage, setErrorMessage] = React.useState<string>("");
 
   const comboBoxStyles: Partial<IComboBoxStyles> = { root: { maxWidth: 300 } };
 
@@ -41,8 +42,10 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
       if (Array.isArray(data)) {
         setLineChartData(data);
       } else {
-        // Error
+        // Set Error Message
+        setErrorMessage(data['Error']);
         setLineChartData([]);
+
       }
     } catch (error) {
       console.error('There was a problem with the fetch operation');
@@ -50,6 +53,10 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
       return;
     }
   };
+
+  const dismissError = () => {
+    setErrorMessage("");
+  }
 
   const onChange = (_: any, item: IComboBoxOption | undefined) => {
     setSelectedItem(item ? item.text : "");
@@ -70,6 +77,21 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
               onClick={toggleShowData}
             />
           </Stack>
+          {errorMessage && <MessageBar
+            messageBarType={MessageBarType.error}
+            isMultiline={false}
+            onDismiss={dismissError}
+            dismissButtonAriaLabel="Close"
+            styles={{
+              root: {
+                display: "inline-block",
+                width: "fit-content",
+                maxWidth: "100%",
+              }
+            }}
+          >
+            {errorMessage}
+          </MessageBar>}
           <ComboBox
             label="Location"
             selectedKey={selectedItem}
