@@ -1,4 +1,7 @@
 
+
+const mainURL = 'http://127.0.0.1:8000'
+
 /**
  * Get the affordability data for a specified location
  * @param location location to get affordability
@@ -9,7 +12,7 @@ export const getAffordability = async (location: any) => {
     location: location
   }
   const queryString = new URLSearchParams(params).toString();
-  const url = `http://127.0.0.1:8000/affordability?${queryString}`;
+  const url = `${mainURL}/affordability?${queryString}`;
 
   try {
     const response = await fetch(url);
@@ -19,4 +22,23 @@ export const getAffordability = async (location: any) => {
     return { "Error": "Error in the API Call" }
   }
 
+};
+
+export const getPriceIndexRatio = async (location: any): Promise<{[key: string]: any}> => {
+  const params = {
+    location: location
+  }
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${mainURL}/pi_ratio?${queryString}`
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      return {"Error": "PI Ratio Fetch response not ok"}
+    }
+    const data = await response.json();
+    return data;
+  } catch (e) {
+    console.error('There was a problem with the fetch operation - PI Ratio');
+    return {"Error": "Error fetching PI Ratio"};
+  }
 };
