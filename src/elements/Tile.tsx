@@ -5,6 +5,7 @@ import TileChart from './TileChart';
 import { useBoolean } from '@fluentui/react-hooks';
 import TileData from './TileData';
 import { locations } from './Data';
+import { getPriceIndexRatio } from '../api';
 
 interface ITileProps {
   title: string;
@@ -26,24 +27,14 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
 
   const getLocation = async (location: string | number | undefined): Promise<any> => {
 
-    const params = {
-      location: location
-    };
-
-    const queryString = new URLSearchParams(params as Record<string, string>).toString();
-    const url = `http://127.0.0.1:8000/pi_ratio?${queryString}`;
+    let piDataResponse = await getPriceIndexRatio(location)
   
     try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
-      if (Array.isArray(data)) {
-        setLineChartData(data);
+      if (Array.isArray(piDataResponse)) {
+        setLineChartData(piDataResponse);
       } else {
         // Set Error Message
-        setErrorMessage(data['Error']);
+        setErrorMessage(piDataResponse['Error']);
         setLineChartData([]);
 
       }
