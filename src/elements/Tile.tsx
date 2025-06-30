@@ -30,6 +30,7 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
   const getLocation = async (location: string | number | undefined): Promise<any> => {
 
     let piDataResponse = await getPriceIndexRatio(location);
+    let affordabilityData = await getAffordability(location);
     
     try {
       if (Array.isArray(piDataResponse)) {
@@ -42,12 +43,8 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
       }
     } catch (error) {
       console.error('There was a problem with the pi fetch');
-      // setLineChartData([{}]);
       return;
     }
-    
-    let affordabilityData = await getAffordability(location);
-    console.log(affordabilityData);
     
     try {
       setSimpleTileData(affordabilityData);
@@ -121,9 +118,11 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
         </Stack>
 
       </div>
-      <SimpleTile
-        data={simpleTileData}
-      />
+      {
+        simpleTileData && Object.keys(simpleTileData).length > 0 ? (
+          <SimpleTile data={simpleTileData} />
+        ) : null
+      }
     </div>
   )
 };
