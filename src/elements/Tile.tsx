@@ -64,7 +64,7 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
   };
 
   return (
-    <>
+    <Stack tokens={{childrenGap: 20}}>
       <div style={{ padding: "10px", border: "1px solid black" }}>
         <Stack>
           <Stack horizontal tokens={{ childrenGap: 5 }} verticalAlign='center' >
@@ -122,7 +122,7 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
           <SimpleTile data={simpleTileData} />
         ) : null
       }
-    </>
+    </Stack>
   )
 };
 
