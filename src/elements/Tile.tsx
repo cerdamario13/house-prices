@@ -5,7 +5,8 @@ import TileChart from './TileChart';
 import { useBoolean } from '@fluentui/react-hooks';
 import TileData from './TileData';
 import { locations } from './Data';
-import { getPriceIndexRatio } from '../api';
+import { getAffordability, getPriceIndexRatio } from '../api';
+import { SimpleTile } from './SimpleTile';
 
 interface ITileProps {
   title: string;
@@ -16,6 +17,7 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
 
   const [showData, { toggle: toggleShowData }] = useBoolean(false);
   const [selectedItem, setSelectedItem] = React.useState<string | number | undefined>("Austin-Round Rock, TX");
+  const [simpleTileData, setSimpleTileData] = React.useState({});
   const [lineChartData, setLineChartData] = React.useState<any>([]);
   const [errorMessage, setErrorMessage] = React.useState<string>("");
 
@@ -27,8 +29,8 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
 
   const getLocation = async (location: string | number | undefined): Promise<any> => {
 
-    let piDataResponse = await getPriceIndexRatio(location)
-  
+    let piDataResponse = await getPriceIndexRatio(location);
+    
     try {
       if (Array.isArray(piDataResponse)) {
         setLineChartData(piDataResponse);
@@ -36,13 +38,24 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
         // Set Error Message
         setErrorMessage(piDataResponse['Error']);
         setLineChartData([]);
-
+        
       }
     } catch (error) {
-      console.error('There was a problem with the fetch operation');
+      console.error('There was a problem with the pi fetch');
       // setLineChartData([{}]);
       return;
     }
+    
+    let affordabilityData = await getAffordability(location);
+    console.log(affordabilityData);
+    
+    try {
+      setSimpleTileData(affordabilityData);
+    } catch (e) {
+      console.error('There was a problem with the affordability fetch');
+      return;
+    }
+
   };
 
   const dismissError = () => {
@@ -108,7 +121,9 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
         </Stack>
 
       </div>
-
+      <SimpleTile
+        data={simpleTileData}
+      />
     </div>
   )
 };
