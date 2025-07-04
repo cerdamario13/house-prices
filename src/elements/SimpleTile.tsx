@@ -8,28 +8,35 @@ interface SimpleTileProps {
 export const SimpleTile: React.FC<SimpleTileProps> = ({
   data
 }) => {
+
+  // Create a NumberFormat instance for US dollars
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
   return (
     <div style={{ padding: "10px", border: "1px solid black" }}>
       <Stack>
         <Text variant='xLarge'>Affordability</Text>
         <TextField
           label='Annual Income Needed to Afford'
-          value={data['Annual Income Needed to Afford']}
+          value={formatter.format(data['Annual Income Needed to Afford'])}
           borderless
         />
         <TextField
           label='Monthly Mortgage Payment '
-          value={data['Monthly Mortgage Payment ']}
+          value={formatter.format(data['Monthly Mortgage Payment '])}
           borderless
         />
         <TextField
           label='Total Monthly Owner Costs '
-          value={data['Total Monthly Owner Costs ']}
+          value={formatter.format(data['Total Monthly Owner Costs '])}
           borderless
         />
         <TextField
           label='Typical Home Value'
-          value={data['Typical Home Value']}
+          value={formatter.format(data['Typical Home Value'])}
           borderless
         />
       </Stack>
