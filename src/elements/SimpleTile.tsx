@@ -23,21 +23,25 @@ export const SimpleTile: React.FC<SimpleTileProps> = ({
           label='Annual Income Needed to Afford'
           value={formatter.format(data['Annual Income Needed to Afford'])}
           borderless
+          onChange={() => {}}
         />
         <TextField
           label='Monthly Mortgage Payment '
           value={formatter.format(data['Monthly Mortgage Payment '])}
           borderless
+          onChange={() => {}}
         />
         <TextField
           label='Total Monthly Owner Costs '
           value={formatter.format(data['Total Monthly Owner Costs '])}
           borderless
+          onChange={() => {}}
         />
         <TextField
           label='Typical Home Value'
           value={formatter.format(data['Typical Home Value'])}
           borderless
+          onChange={() => {}}
         />
       </Stack>
     </div>
