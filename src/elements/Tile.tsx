@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { ComboBox, IComboBoxOption, IComboBoxStyles, IconButton, MessageBar, MessageBarType, Stack, Text } from '@fluentui/react';
-import { ILineChartPoints } from '@fluentui/react-charting';
 import TileChart from './TileChart';
 import { useBoolean } from '@fluentui/react-hooks';
 import TileData from './TileData';
