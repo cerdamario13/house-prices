@@ -5,8 +5,9 @@ import TileChart from './TileChart';
 import { useBoolean } from '@fluentui/react-hooks';
 import TileData from './TileData';
 import { locations } from './Data';
-import { getAffordability, getPriceIndexRatio } from '../api';
+import { getAffordability, getPriceIndexRatio, getYTYChange } from '../api';
 import { SimpleTile } from './SimpleTile';
+import { DoubleChartTitle } from './DoubleChartTile';
 
 interface ITileProps {
   title: string;
@@ -19,6 +20,7 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
   const [selectedItem, setSelectedItem] = React.useState<string | number | undefined>("Austin-Round Rock, TX");
   const [simpleTileData, setSimpleTileData] = React.useState({});
   const [lineChartData, setLineChartData] = React.useState<any>([]);
+  const [doubleChartData, setDoubleChartData] = React.useState({});
   const [errorMessage, setErrorMessage] = React.useState<string>("");
 
   const comboBoxStyles: Partial<IComboBoxStyles> = { root: { maxWidth: 300 } };
@@ -31,6 +33,7 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
 
     let piDataResponse = await getPriceIndexRatio(location);
     let affordabilityData = await getAffordability(location);
+    let yTYChange = await getYTYChange(location);
     
     try {
       if (Array.isArray(piDataResponse)) {
@@ -50,6 +53,13 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
       setSimpleTileData(affordabilityData);
     } catch (e) {
       console.error('There was a problem with the affordability fetch');
+      return;
+    }
+
+    try {
+      setDoubleChartData(yTYChange);
+    } catch (e) {
+      console.error('There was a problem with the Year to Year Charge fetch')
       return;
     }
 
@@ -117,11 +127,16 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
           }
         </Stack>
       </div>
-      {
-        simpleTileData && Object.keys(simpleTileData).length > 0 ? (
-          <SimpleTile data={simpleTileData} />
-        ) : null
-      }
+      <Stack horizontal >
+        {
+          simpleTileData && Object.keys(simpleTileData).length > 0 ? (
+            <SimpleTile data={simpleTileData} />
+          ) : null
+        }
+        <DoubleChartTitle
+          data={doubleChartData}
+        />
+      </Stack>
     </Stack>
   )
 };
