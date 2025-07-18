@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  react-app:
+    image: ghcr.io/wrangleworks/house-prices-app:latest
+    container_name: house-prices-app
+    ports:
+      - "3000:80"
+    restart: unless-stopped
