@@ -9,6 +9,7 @@ interface ITileChartProps {
 };
 
 const TileChart = ({ lineChartData, chartTitle }: ITileChartProps) => {
+  console.log("LineData:", lineChartData)
   return (
     <>
       {

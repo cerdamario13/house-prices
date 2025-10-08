@@ -13,13 +13,18 @@ interface ITileProps {
   chartTitle: string;
 };
 
+export interface doubleChartDataProps {
+  house_data: any[];
+  rent_data:any[];
+}
+
 const Tile = ({ title, chartTitle }: ITileProps) => {
 
   const [showData, { toggle: toggleShowData }] = useBoolean(false);
   const [selectedItem, setSelectedItem] = React.useState<string | number | undefined>("Austin-Round Rock, TX");
   const [simpleTileData, setSimpleTileData] = React.useState({});
   const [lineChartData, setLineChartData] = React.useState<any>([]);
-  const [doubleChartData, setDoubleChartData] = React.useState({});
+  const [doubleChartData, setDoubleChartData] = React.useState<doubleChartDataProps | {[key: string]: any}>({house_data: [], rent_data: []});
   const [errorMessage, setErrorMessage] = React.useState<string>("");
 
   const comboBoxStyles: Partial<IComboBoxStyles> = { root: { maxWidth: 300 } };

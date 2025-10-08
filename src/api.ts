@@ -1,3 +1,4 @@
+import { doubleChartDataProps } from "./elements/Tile";
 
 
 const mainURL = 'http://127.0.0.1:5001'
@@ -43,7 +44,7 @@ export const getPriceIndexRatio = async (location: any): Promise<{[key: string]:
   }
 };
 
-export const getYTYChange = async (location: any): Promise<{[key: string]: any}> => {
+export const getYTYChange = async (location: any): Promise<doubleChartDataProps | {[key: string]: any}> => {
   const params = {
     location: location
   }
