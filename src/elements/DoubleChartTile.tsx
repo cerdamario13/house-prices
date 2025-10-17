@@ -3,18 +3,27 @@ import CustomChart from './CustomChart';
 
 
 interface DoubleChartTitleProps {
-  data: any;
+  data: {[key: string]: any};
 };
 
-export const DoubleChartTitle: React.FC<DoubleChartTitleProps> = ({
+export const DoubleChartTile: React.FC<DoubleChartTitleProps> = ({
   data
 }) => {
 
   return (
     <>
       <CustomChart
-        chartTitle={'Hello'}
-        lineChartData={data['house_data']}
+        chartTitle={'House Data'}
+        lineChartData={[
+          {
+            legend: 'House Data',
+            data: data['house_data']
+          },
+          {
+            legend: 'Rent Data',
+            data: data['rent_data']
+          }
+        ]}
       />
     </>
   );

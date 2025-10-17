@@ -6,7 +6,7 @@ import TileData from './TileData';
 import { locations } from './Data';
 import { getAffordability, getPriceIndexRatio, getYTYChange } from '../api';
 import { SimpleTile } from './SimpleTile';
-import { DoubleChartTitle } from './DoubleChartTile';
+import { DoubleChartTile } from './DoubleChartTile';
 
 interface ITileProps {
   title: string;
@@ -37,7 +37,7 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
 
     let piDataResponse = await getPriceIndexRatio(location);
     let affordabilityData = await getAffordability(location);
-    // let yTYChange = await getYTYChange(location);
+    let yTYChange = await getYTYChange(location);
     
     try {
       if (Array.isArray(piDataResponse)) {
@@ -66,14 +66,12 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
       return;
     }
 
-    // try {
-    //   setDoubleChartData(
-    //     yTYChange
-    //   );
-    // } catch (e) {
-    //   console.error('There was a problem with the Year to Year Charge fetch')
-    //   return;
-    // }
+    try {
+      setDoubleChartData(yTYChange);
+    } catch (e) {
+      console.error('There was a problem with the Year to Year Charge fetch')
+      return;
+    }
 
   };
 
@@ -145,9 +143,13 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
             <SimpleTile data={simpleTileData} />
           ) : null
         }
-        <DoubleChartTitle
-          data={doubleChartData}
-        />
+        {
+          Object.keys(doubleChartData).length > 0 && !Object.keys(doubleChartData).includes('message') ? (
+            <DoubleChartTile
+              data={doubleChartData}
+            />
+          ) : null
+        }
       </Stack>
     </Stack>
   )
