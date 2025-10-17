@@ -137,7 +137,7 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
           }
         </Stack>
       </div>
-      <Stack horizontal >
+      <Stack horizontal tokens={{ childrenGap: 10 }}>
         {
           simpleTileData && Object.keys(simpleTileData).length > 0 ? (
             <SimpleTile data={simpleTileData} />
@@ -145,9 +145,15 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
         }
         {
           Object.keys(doubleChartData).length > 0 && !Object.keys(doubleChartData).includes('message') ? (
-            <DoubleChartTile
-              data={doubleChartData}
-            />
+            <div style={{
+              padding: "10px",
+              border: "1px solid black",
+              width: "100%",
+              height: "100%",
+              boxSizing: "border-box"
+            }}>
+              <DoubleChartTile data={doubleChartData} />
+            </div>
           ) : null
         }
       </Stack>
