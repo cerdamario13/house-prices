@@ -10,8 +10,6 @@ export const DoubleChartTitle: React.FC<DoubleChartTitleProps> = ({
   data
 }) => {
 
-  console.log(data)
-
   return (
     <>
       <CustomChart

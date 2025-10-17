@@ -1,20 +1,24 @@
-import * as React from 'react';
-import { IChartProps } from '@fluentui/react-charting';
+import React from 'react';
+import { IChartProps, ILineChartDataPoint } from '@fluentui/react-charting';
 import { LineChart } from '@fluentui/react-charting';
 
 interface ICustomChartProps {
   chartTitle: string;
-  lineChartData: any;
+  lineChartData: {
+    legend: string;
+    color?: string;
+    data: ILineChartDataPoint[];
+  }[];
 };
 
-const CustomChart = ({chartTitle, lineChartData}: ICustomChartProps) => {
+const CustomChart: React.FC<ICustomChartProps> = ({
+  chartTitle, 
+  lineChartData
+}) => {
 
   const data: IChartProps = {
     chartTitle: chartTitle,
-    lineChartData: [{
-      legend: 'Price Index',
-      data: lineChartData
-    }]
+    lineChartData: lineChartData,
   };
   
   return (

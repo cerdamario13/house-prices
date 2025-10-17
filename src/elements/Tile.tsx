@@ -23,8 +23,8 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
   const [showData, { toggle: toggleShowData }] = useBoolean(false);
   const [selectedItem, setSelectedItem] = React.useState<string | number | undefined>("Austin-Round Rock, TX");
   const [simpleTileData, setSimpleTileData] = React.useState({});
-  const [lineChartData, setLineChartData] = React.useState<any>([]);
-  const [doubleChartData, setDoubleChartData] = React.useState<doubleChartDataProps | {[key: string]: any}>({house_data: [], rent_data: []});
+  const [lineChartData, setLineChartData] = React.useState<any>([{legend: '', data: []}]);
+  const [doubleChartData, setDoubleChartData] = React.useState<doubleChartDataProps | {[key: string]: any}>([]);
   const [errorMessage, setErrorMessage] = React.useState<string>("");
 
   const comboBoxStyles: Partial<IComboBoxStyles> = { root: { maxWidth: 300 } };
@@ -36,12 +36,18 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
   const getLocation = async (location: string | number | undefined): Promise<any> => {
 
     let piDataResponse = await getPriceIndexRatio(location);
-    let affordabilityData = await getAffordability(location);
-    let yTYChange = await getYTYChange(location);
+    // let affordabilityData = await getAffordability(location);
+    // let yTYChange = await getYTYChange(location);
     
     try {
       if (Array.isArray(piDataResponse)) {
-        setLineChartData(piDataResponse);
+        setLineChartData([
+          {
+            legend: 'PI Ratio',
+            data: piDataResponse
+          }
+        ]
+        );
       } else {
         // Set Error Message
         setErrorMessage(piDataResponse['Error']);
@@ -53,19 +59,21 @@ const Tile = ({ title, chartTitle }: ITileProps) => {
       return;
     }
     
-    try {
-      setSimpleTileData(affordabilityData);
-    } catch (e) {
-      console.error('There was a problem with the affordability fetch');
-      return;
-    }
+    // try {
+    //   setSimpleTileData(affordabilityData);
+    // } catch (e) {
+    //   console.error('There was a problem with the affordability fetch');
+    //   return;
+    // }
 
-    try {
-      setDoubleChartData(yTYChange);
-    } catch (e) {
-      console.error('There was a problem with the Year to Year Charge fetch')
-      return;
-    }
+    // try {
+    //   setDoubleChartData(
+    //     yTYChange
+    //   );
+    // } catch (e) {
+    //   console.error('There was a problem with the Year to Year Charge fetch')
+    //   return;
+    // }
 
   };
 

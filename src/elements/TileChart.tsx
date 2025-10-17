@@ -1,19 +1,19 @@
 import * as React from 'react';
 import CustomChart from './CustomChart';
-import { ILineChartPoints } from '@fluentui/react-charting';
+import { ILineChartDataPoint } from '@fluentui/react-charting';
 
 
 interface ITileChartProps {
-  lineChartData: ILineChartPoints[] | undefined;
+  lineChartData: {legend: string, data: ILineChartDataPoint[]}[];
   chartTitle: string;
 };
 
 const TileChart = ({ lineChartData, chartTitle }: ITileChartProps) => {
-  console.log("LineData:", lineChartData)
+
   return (
     <>
       {
-        lineChartData ? (
+        (lineChartData.length > 0 && lineChartData[0]['data'].length > 0) ? (
           <CustomChart
             chartTitle={chartTitle}
             lineChartData={lineChartData}
